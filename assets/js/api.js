@@ -14,11 +14,21 @@
  */
 
 /* ─────────────────────────
-   Configuración base
+   Resolución dinámica de BASE_URL
 ───────────────────────── */
 
+function resolverBaseUrl() {
+  // Producción: GitHub Pages
+  if (location.hostname === 'diegotntn.github.io') {
+    return 'https://reportes-dashboard-backend.onrender.com/api';
+  }
+
+  // Desarrollo local
+  return 'http://localhost:8000/api';
+}
+
 const API_CONFIG = {
-  BASE_URL: 'http://localhost:8000/api'
+  BASE_URL: resolverBaseUrl()
 };
 
 /* ─────────────────────────
@@ -106,11 +116,6 @@ export async function generarReporte(filtros = {}) {
       agrupar: filtros.agrupar
     };
   }
-
-  /* =====================================================
-     Logs de diagnóstico (estructura real)
-     ===================================================== */
-
 
   return resultado;
 }
