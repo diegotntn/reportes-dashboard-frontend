@@ -15,7 +15,7 @@
    }
 ====================================================== */
 
-import { renderLineChart } from '/assets/js/charts.js';
+import { renderLineChart } from '../../charts.js';
 
 // ─────────────────────────────
 // Estado interno persistente
