@@ -130,7 +130,7 @@ async function montarVista(tab, contenedor) {
 
   /* ───────── Fetch HTML ───────── */
   try {
-    const ruta = `/views/reportes_${tab}.html`;
+    const ruta = `./views/reportes_${tab}.html`;
     console.log('[Vista] Fetch:', ruta);
 
     const res = await fetch(ruta);
