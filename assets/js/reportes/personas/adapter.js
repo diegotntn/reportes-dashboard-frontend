@@ -51,8 +51,6 @@ function normalizarKPIs(row) {
 ====================================================== */
 
 export function adaptarDatosPersonas(resultado) {
-  console.group('[Personas][Adapter]');
-
   resetPersonas();
 
   const bruto = resultado?.por_persona ?? {};
@@ -63,21 +61,12 @@ export function adaptarDatosPersonas(resultado) {
 
   const periodo = normalizarPeriodo(resultado?.agrupar);
 
-  console.log('periodo normalizado:', periodo);
-  console.log('personas recibidas:', mapaPersonas);
-  console.log('personas con datos:', Object.keys(bruto));
-
   Object.entries(bruto).forEach(([personaId, bloque]) => {
-    console.group(`[Persona ${personaId}]`);
-
     if (!Array.isArray(bloque.tabla) || bloque.tabla.length === 0) {
-      console.warn('bloque.tabla vacío o inválido');
-      console.groupEnd();
       return;
     }
 
     const nombre = mapaPersonas[personaId] ?? personaId;
-
     personas.push(personaId);
 
     const serie = bloque.tabla.map(row => ({
@@ -95,19 +84,11 @@ export function adaptarDatosPersonas(resultado) {
         nombre
       }
     };
-
-    console.log('[DATA FINAL PERSONA]', data[personaId]);
-    console.groupEnd();
   });
-
-  console.log('[Personas][Adapter] personas finales:', personas);
-  console.log('[Personas][Adapter] data final:', data);
 
   setPersonasData({
     data,
     personas,
-    mapaPersonas   // 🔑 opcional pero útil globalmente
+    mapaPersonas
   });
-
-  console.groupEnd();
 }
