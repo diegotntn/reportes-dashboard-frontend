@@ -14,22 +14,25 @@
  */
 
 /* ─────────────────────────
-   Resolución dinámica de BASE_URL
+   🔁 BANDERA DE ENTORNO
 ───────────────────────── */
 
-function resolverBaseUrl() {
-  // Producción: GitHub Pages
-  if (location.hostname === 'diegotntn.github.io') {
-    return 'https://reportes-dashboard-backend.onrender.com/api';
-  }
+const MODE = 1; // 0 = LOCALHOST | 1 = RENDER
 
-  // Desarrollo local
-  return 'http://localhost:8000/api';
-}
+
+/* ─────────────────────────
+   CONFIGURACIÓN BASE
+───────────────────────── */
+
+const BASE_URL =
+  MODE === 0
+    ? 'http://localhost:8000/api'
+    : 'https://reportes-dashboard-backend.onrender.com/api';
 
 const API_CONFIG = {
-  BASE_URL: resolverBaseUrl()
+  BASE_URL
 };
+
 
 /* ─────────────────────────
    Fetch base
@@ -53,17 +56,16 @@ async function fetchBase(url, options = {}) {
 
     const contentType = response.headers.get('content-type') || '';
     if (!contentType.includes('application/json')) {
-      console.warn('⚠️ Respuesta sin JSON:', url);
       return null;
     }
 
     return await response.json();
 
   } catch (error) {
-    console.error('❌ Error API:', error.message);
     throw error;
   }
 }
+
 
 /* ─────────────────────────
    API genérica
@@ -88,6 +90,7 @@ export async function apiPost(path, data = {}) {
   });
 }
 
+
 /* ─────────────────────────
    Endpoints específicos
 ───────────────────────── */
@@ -96,7 +99,6 @@ export async function apiPost(path, data = {}) {
  * Generar reporte principal
  */
 export async function generarReporte(filtros = {}) {
-
   const payload = {
     desde: filtros.desde,
     hasta: filtros.hasta,
@@ -104,10 +106,6 @@ export async function generarReporte(filtros = {}) {
   };
 
   const resultado = await apiPost('/reportes', payload);
-
-  /* =====================================================
-     🔑 INYECCIÓN DE CONTEXTO (CLAVE PARA PASILLOS)
-     ===================================================== */
 
   if (resultado && filtros?.desde && filtros?.hasta) {
     resultado.rango = {
@@ -119,6 +117,7 @@ export async function generarReporte(filtros = {}) {
 
   return resultado;
 }
+
 
 /* ─────────────────────────
    Otros endpoints
@@ -135,6 +134,7 @@ export async function obtenerPersonal() {
 export async function obtenerDevoluciones(filtros = {}) {
   return apiGet('/devoluciones', filtros);
 }
+
 
 /* ─────────────────────────
    Helper opcional
