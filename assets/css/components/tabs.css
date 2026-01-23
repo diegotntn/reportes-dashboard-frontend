@@ -1,0 +1,50 @@
+/* ======================================================
+   tabs.css
+   Navegación por tabs y panels
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Contenedor de tabs
+   - Botones de tab (normal, hover, active)
+   - Visibilidad de panels
+====================================================== */
+
+.reportes-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.tab-button:hover {
+  color: var(--color-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.tab-button.active {
+  color: var(--color-primary);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Panels */
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
