@@ -16,25 +16,7 @@
 @import url('./variables.css');
 @import url('./base/global.css');
 @import url('./layout/screen.css');
-
-/* ======================================================
-   Contenedores principales
-====================================================== */
-.reportes-filters,
-.reportes-content {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-.reportes-filters {
-  padding: var(--space-md);
-}
-
-.reportes-content {
-  padding: var(--space-lg);
-}
+@import url('./layout/containers.css');
 
 /* ======================================================
    Forms (filtros)
