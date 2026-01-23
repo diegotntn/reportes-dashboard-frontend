@@ -1,0 +1,54 @@
+/* ======================================================
+   forms.css
+   Formularios y controles de filtros
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Layout del formulario de filtros
+   - Inputs, selects y botones
+   - Estados focus y hover
+====================================================== */
+
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: end;
+}
+
+.filters-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  min-width: 180px;
+}
+
+.filters-form input,
+.filters-form select {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.filters-form input:focus,
+.filters-form select:focus {
+  border-color: var(--color-primary);
+}
+
+.filters-form button[type="submit"] {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.filters-form button[type="submit"]:hover {
+  filter: brightness(0.95);
+}
