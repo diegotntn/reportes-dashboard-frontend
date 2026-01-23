@@ -1,0 +1,23 @@
+/* ======================================================
+   pasillos.css
+   Vista Pasillos del dashboard
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Estructura interna del grid de pasillos
+   - Fieldsets y leyendas por pasillo
+====================================================== */
+
+.pasillos-grid fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin: 0;
+  background: var(--color-surface);
+}
+
+.pasillos-grid legend {
+  padding: 0 6px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
