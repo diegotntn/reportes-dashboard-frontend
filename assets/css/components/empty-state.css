@@ -1,0 +1,20 @@
+/* ======================================================
+   empty-state.css
+   Estados vacíos
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Mensajes cuando no hay datos
+   - Tipografía y jerarquía visual
+====================================================== */
+
+.empty-state h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--color-text-muted);
+}

@@ -16,6 +16,8 @@
 @import url('./components/tabs.css');
 @import url('./components/cards.css');
 @import url('./components/charts.css');
+@import url('./components/empty-state.css');
+@import url('./components/period-tabs.css');
 @import url('./utilities.css');
 
 /* ======================================================
@@ -70,21 +72,6 @@
 }
 
 /* ======================================================
-   Estado vacío
-====================================================== */
-.empty-state h4 {
-  margin: 0 0 6px 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.empty-state p {
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-/* ======================================================
    Pasillos (estructura interna)
 ====================================================== */
 .pasillos-grid fieldset {
@@ -116,38 +103,4 @@
   display: flex;
   gap: var(--space-sm);
   align-items: center;
-}
-
-/* ======================================================
-   Periodos / sub-tabs
-====================================================== */
-.period-tabs {
-  display: flex;
-  gap: var(--space-sm);
-  margin: var(--space-md) 0;
-  flex-wrap: wrap;
-}
-
-.period-btn {
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  transition: background var(--transition-fast),
-              color var(--transition-fast),
-              border-color var(--transition-fast);
-}
-
-.period-btn:hover {
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
-}
-
-.period-btn.active {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
 }
