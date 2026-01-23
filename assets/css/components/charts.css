@@ -1,0 +1,26 @@
+/* ======================================================
+   charts.css
+   Contenedores de gráficas
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Contenedor genérico de charts
+   - Soporte Chart.js (canvas)
+   - Soporte Plotly
+====================================================== */
+
+.chart-container {
+  height: 360px;
+  width: 100%;
+}
+
+.plotly-chart {
+  width: 100%;
+  min-height: 320px;
+}
+
+/* Evita que canvas se colapse */
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
