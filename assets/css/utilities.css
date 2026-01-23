@@ -1,0 +1,24 @@
+/* ======================================================
+   utilities.css
+   Clases utilitarias
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Colores de texto por estado
+   - Uso rápido y transversal en vistas
+====================================================== */
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}

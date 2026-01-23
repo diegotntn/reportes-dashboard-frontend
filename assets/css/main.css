@@ -1,19 +1,13 @@
 /* ======================================================
    main.css
    Estilos base del Dashboard de Reportes
-   ------------------------------------------------------
-   RESPONSABILIDAD:
-   - Layout general
-   - Tabs + panels (visibilidad por clase .active)
-   - Componentes comunes (cards, grids, utilidades)
-   - Contenedores de gráficas (Chart.js / Plotly)
 ====================================================== */
 
 /* ======================================================
    Reset & Variables
 ====================================================== */
 @import url('./reset.css');
-@import url('./variables.css');
+@import url('./base/variables.css');
 @import url('./base/global.css');
 @import url('./layout/screen.css');
 @import url('./layout/containers.css');
@@ -22,6 +16,7 @@
 @import url('./components/tabs.css');
 @import url('./components/cards.css');
 @import url('./components/charts.css');
+@import url('./utilities.css');
 
 /* ======================================================
    View header / controles
@@ -37,6 +32,8 @@
 .view-header h3 {
   margin: 0;
   font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
 .general-controls,
@@ -51,6 +48,7 @@
 .pasillos-controls label {
   font-size: 13px;
   color: var(--color-text-secondary);
+  font-weight: 500;
 }
 
 .general-controls select,
@@ -58,18 +56,32 @@
   padding: 8px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  background: transparent;
+  background: var(--color-surface);
   color: var(--color-text-primary);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
 }
 
-/* Estado vacío */
+.general-controls select:focus-visible,
+.pasillos-controls select:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+/* ======================================================
+   Estado vacío
+====================================================== */
 .empty-state h4 {
   margin: 0 0 6px 0;
   font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
 .empty-state p {
   margin: 0;
+  color: var(--color-text-muted);
 }
 
 /* ======================================================
@@ -80,31 +92,14 @@
   border-radius: var(--radius-md);
   padding: var(--space-md);
   margin: 0;
+  background: var(--color-surface);
 }
 
 .pasillos-grid legend {
   padding: 0 6px;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 13px;
   color: var(--color-text-secondary);
-}
-
-/* ======================================================
-   Utilidades
-====================================================== */
-.text-muted {
-  color: var(--color-text-muted);
-}
-
-.text-success {
-  color: var(--color-success);
-}
-
-.text-warning {
-  color: var(--color-warning);
-}
-
-.text-danger {
-  color: var(--color-danger);
 }
 
 /* ======================================================
@@ -113,6 +108,7 @@
 .general-placeholder {
   margin-top: var(--space-lg);
   font-size: 13px;
+  color: var(--color-text-secondary);
 }
 
 .metric-selector {
@@ -136,9 +132,18 @@
   padding: 8px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  background: transparent;
+  background: var(--color-surface);
   cursor: pointer;
   color: var(--color-text-secondary);
+  font-weight: 500;
+  transition: background var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.period-btn:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
 }
 
 .period-btn.active {
