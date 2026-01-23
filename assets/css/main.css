@@ -14,51 +14,8 @@
 ====================================================== */
 @import url('./reset.css');
 @import url('./variables.css');
-
-/* ======================================================
-   Global
-====================================================== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-base);
-  background: var(--color-bg);
-  color: var(--color-text-primary);
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-/* Links / botones */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-}
-
-/* ======================================================
-   Screen layout
-====================================================== */
-.reportes-screen {
-  padding: var(--space-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  max-width: 1200px;
-  margin: 0 auto;
-}
+@import url('./base/global.css');
+@import url('./layout/screen.css');
 
 /* ======================================================
    Contenedores principales
@@ -129,10 +86,6 @@ button {
 
 /* ======================================================
    Tabs (navegación)
-   IMPORTANTE:
-   - Los botones deben tener class="tab-button"
-   - Los panels deben tener class="tab-panel"
-   - La visibilidad se controla con .active (NO inline style)
 ====================================================== */
 .reportes-tabs {
   display: flex;

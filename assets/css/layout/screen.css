@@ -1,0 +1,17 @@
+/* ======================================================
+   screen.css
+   Layout principal de la pantalla de reportes
+   ------------------------------------------------------
+   RESPONSABILIDAD:
+   - Contenedor raíz del dashboard
+   - Espaciado y ancho máximo
+====================================================== */
+
+.reportes-screen {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
