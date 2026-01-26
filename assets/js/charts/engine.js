@@ -6,6 +6,7 @@
 
 import { BASE_OPTIONS } from './config/baseOptions.js';
 import { BASE_SCALES } from './config/scales.js';
+import { BASE_TOOLTIP } from './plugins/tooltip.js';
 
 /* ======================================================
    HELPERS
@@ -102,6 +103,7 @@ export function renderLineChart(canvas, payload, options = {}) {
 
       plugins: {
         ...BASE_OPTIONS.plugins,
+        tooltip: BASE_TOOLTIP,
         ...(options.plugins || {})
       },
 
@@ -183,7 +185,7 @@ export function renderDonutChart(canvas, labels, data, options = {}) {
       responsive: true,
       plugins: {
         legend: { position: 'right' },
-        tooltip: BASE_OPTIONS.plugins.tooltip
+        tooltip: BASE_TOOLTIP
       },
       ...options
     }

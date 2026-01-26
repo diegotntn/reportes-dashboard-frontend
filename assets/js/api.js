@@ -17,7 +17,7 @@
    🔁 BANDERA DE ENTORNO
 ───────────────────────── */
 
-const MODE = 1; // 0 = LOCALHOST | 1 = RENDER
+const MODE = 0; // 0 = LOCALHOST | 1 = RENDER
 
 
 /* ─────────────────────────
