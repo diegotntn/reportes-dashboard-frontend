@@ -4,10 +4,10 @@
  * Orquestador del dashboard de reportes
  *
  * RESPONSABILIDADES:
- * - Renderizar estructura base del dashboard
- * - Inicializar filtros
- * - Pedir datos al backend
- * - Distribuir resultados a las vistas
+ * - Renderizar la estructura base del dashboard
+ * - Inicializar filtros y eventos globales
+ * - Solicitar datos al backend
+ * - Distribuir resultados a las distintas vistas
  *
  * NO HACE:
  * - Render de gráficas
@@ -18,20 +18,28 @@
 // IMPORTS DE VISTAS
 // ─────────────────────────────
 
-// Vistas legacy / nuevas (event-driven)
+// General (legacy / event-driven)
 import './general/controller.js';
-import './pasillos.js';
+
+// Pasillos (side-effect, NO exporta nada)
+import './pasillos/indexPasillos.js';
+
+// Otras vistas legacy
 import './zonas.js';
 import './detalle.js';
 
 // Personas (arquitectura nueva)
 import { cargarResultadoPersonas } from './personas/index.js';
 
-// Infraestructura
+// ─────────────────────────────
+// INFRAESTRUCTURA
+// ─────────────────────────────
 import { iniciarTabsReportes } from '../router.js';
 import { fetchReportes } from './service.js';
 
-// Store
+// ─────────────────────────────
+// STORE
+// ─────────────────────────────
 import {
   getFiltros,
   setResultado,
@@ -40,17 +48,17 @@ import {
   setInicializado
 } from './reportesStore.js';
 
-// Events
+// ─────────────────────────────
+// EVENTS & FILTERS
+// ─────────────────────────────
 import { initReportesEvents } from './reportesEvents.js';
-
-// Filters
 import { initReportesFilters } from './filters/filtersController.js';
 
 /* ======================================================
    ENTRY POINT
 ====================================================== */
 export function renderReportesScreen(container) {
-  // HTML base (se monta una sola vez)
+  // Render base del dashboard (una sola vez)
   container.innerHTML = `
     <section class="card reportes-screen">
 
@@ -77,11 +85,14 @@ export function renderReportesScreen(container) {
     </section>
   `;
 
+  // Inicialización de filtros y eventos globales
   initReportesFilters(actualizarReportes);
   initReportesEvents(actualizarReportes);
 
+  // Tabs
   iniciarTabsReportes('general');
 
+  // Primera carga
   if (!isInicializado()) {
     setInicializado(true);
     actualizarReportes();
@@ -89,7 +100,7 @@ export function renderReportesScreen(container) {
 }
 
 /* ======================================================
-   API (fetch + distribución)
+   FETCH + DISTRIBUCIÓN DE RESULTADOS
 ====================================================== */
 async function actualizarReportes() {
   const resultado = await fetchReportes(getFiltros());
@@ -97,12 +108,14 @@ async function actualizarReportes() {
 
   setResultado(resultado);
 
+  // Evento global para vistas event-driven
   window.dispatchEvent(
     new CustomEvent('reportes:actualizados', {
       detail: getResultado()
     })
   );
 
+  // Personas usa contrato directo (arquitectura nueva)
   cargarResultadoPersonas(getResultado());
 }
 
