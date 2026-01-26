@@ -25,8 +25,8 @@ import './general/controller.js';
 import './pasillos/indexPasillos.js';
 
 // Otras vistas legacy
-import './zonas.js';
-import './detalle.js';
+import './zonas/zonas.js';
+import './detalle/detalle.js';
 
 // Personas (arquitectura nueva)
 import { cargarResultadoPersonas } from './personas/indexPersonas.js';
