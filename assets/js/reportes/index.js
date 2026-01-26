@@ -28,25 +28,28 @@ import './detalle.js';
 import { cargarResultadoPersonas } from './personas/index.js';
 
 // Infraestructura
-import { generarReporte } from '../api.js';
 import { iniciarTabsReportes } from '../router.js';
+import { fetchReportes } from './service.js';
 
-/* ======================================================
-   ESTADO ÚNICO (fuente de verdad)
-====================================================== */
-let resultadoActual = null;
-let filtrosActuales = null;
-let inicializado = false;
+// Store
+import {
+  getFiltros,
+  setResultado,
+  getResultado,
+  isInicializado,
+  setInicializado
+} from './reportesStore.js';
 
-// Candado de concurrencia
-let cargando = false;
+// Events
+import { initReportesEvents } from './reportesEvents.js';
+
+// Filters
+import { initReportesFilters } from './filters/filtersController.js';
 
 /* ======================================================
    ENTRY POINT
 ====================================================== */
 export function renderReportesScreen(container) {
-  filtrosActuales = filtrosPorDefecto();
-
   // HTML base (se monta una sola vez)
   container.innerHTML = `
     <section class="card reportes-screen">
@@ -74,128 +77,38 @@ export function renderReportesScreen(container) {
     </section>
   `;
 
-  initFiltros();
-  initEventosGlobales();
+  initReportesFilters(actualizarReportes);
+  initReportesEvents(actualizarReportes);
 
   iniciarTabsReportes('general');
 
-  if (!inicializado) {
-    inicializado = true;
+  if (!isInicializado()) {
+    setInicializado(true);
     actualizarReportes();
   }
-}
-
-/* ======================================================
-   FILTROS
-====================================================== */
-function initFiltros() {
-  const container = document.getElementById('filters-container');
-  if (!container) return;
-
-  container.innerHTML = `
-    <form id="reportes-filters" class="filters-form">
-
-      <label>
-        Desde
-        <input type="date" name="desde">
-      </label>
-
-      <label>
-        Hasta
-        <input type="date" name="hasta">
-      </label>
-
-      <label>
-        Agrupar por
-        <select name="agrupar">
-          <option value="Dia">Día</option>
-          <option value="Semana">Semana</option>
-          <option value="Mes">Mes</option>
-          <option value="Anio">Año</option>
-        </select>
-      </label>
-
-      <button type="submit">Generar</button>
-    </form>
-  `;
-
-  const form = container.querySelector('#reportes-filters');
-
-  form.desde.value = filtrosActuales.desde;
-  form.hasta.value = filtrosActuales.hasta;
-  form.agrupar.value = filtrosActuales.agrupar;
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    filtrosActuales = {
-      ...filtrosActuales,
-      ...Object.fromEntries(new FormData(form))
-    };
-
-    actualizarReportes();
-  });
-}
-
-/* ======================================================
-   EVENTOS GLOBALES
-====================================================== */
-function initEventosGlobales() {
-  window.addEventListener('reportes:cambiar-agrupacion', e => {
-    const agrupar = e.detail?.agrupar;
-    if (!agrupar || agrupar === filtrosActuales.agrupar) return;
-
-    filtrosActuales = {
-      ...filtrosActuales,
-      agrupar
-    };
-
-    actualizarReportes();
-  });
 }
 
 /* ======================================================
    API (fetch + distribución)
 ====================================================== */
 async function actualizarReportes() {
-  if (cargando) return;
+  const resultado = await fetchReportes(getFiltros());
+  if (!resultado) return;
 
-  cargando = true;
+  setResultado(resultado);
 
-  try {
-    resultadoActual = await generarReporte(filtrosActuales);
-    if (!resultadoActual) return;
+  window.dispatchEvent(
+    new CustomEvent('reportes:actualizados', {
+      detail: getResultado()
+    })
+  );
 
-    window.dispatchEvent(
-      new CustomEvent('reportes:actualizados', {
-        detail: resultadoActual
-      })
-    );
-
-    cargarResultadoPersonas(resultadoActual);
-
-  } finally {
-    cargando = false;
-  }
-}
-
-/* ======================================================
-   FILTROS POR DEFECTO
-====================================================== */
-function filtrosPorDefecto() {
-  const hoy = new Date();
-  const desde = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-
-  return {
-    desde: desde.toISOString().slice(0, 10),
-    hasta: hoy.toISOString().slice(0, 10),
-    agrupar: 'Mes'
-  };
+  cargarResultadoPersonas(getResultado());
 }
 
 /* ======================================================
    ACCESO SOLO LECTURA AL ESTADO
 ====================================================== */
 export function getResultadoActual() {
-  return resultadoActual;
+  return getResultado();
 }
