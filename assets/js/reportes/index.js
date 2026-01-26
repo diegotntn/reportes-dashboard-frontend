@@ -18,8 +18,8 @@
 // IMPORTS DE VISTAS
 // ─────────────────────────────
 
-// Vistas legacy (event-driven)
-import './general.js';
+// Vistas legacy / nuevas (event-driven)
+import './general/controller.js';
 import './pasillos.js';
 import './zonas.js';
 import './detalle.js';

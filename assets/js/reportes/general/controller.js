@@ -15,7 +15,7 @@
    }
 ====================================================== */
 
-import { renderLineChart } from '../charts/engine.js';
+import { renderLineChart } from '../../charts/engine.js';
 import { viewState } from './viewState.js';
 
 
