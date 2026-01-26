@@ -1,4 +1,4 @@
-import { renderLineChart } from '../../../charts.js';
+import { renderLineChart } from '../../../charts/engine.js';
 import * as state from '../statePersona.js';
 import { estadoVacio } from '../empty.js';
 
