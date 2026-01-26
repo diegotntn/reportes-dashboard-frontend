@@ -7,39 +7,9 @@
 import { BASE_OPTIONS } from './config/baseOptions.js';
 import { BASE_SCALES } from './config/scales.js';
 import { BASE_TOOLTIP } from './plugins/tooltip.js';
-
-/* ======================================================
-   HELPERS
-====================================================== */
-
-function destroyIfExists(canvas) {
-  const chart = Chart.getChart(canvas);
-  if (chart) chart.destroy();
-}
-
-function adaptDensity(count) {
-  if (count > 180) return { maxTicksLimit: 8, pointRadius: 0 };
-  if (count > 60)  return { maxTicksLimit: 10, pointRadius: 2 };
-  if (count > 20)  return { maxTicksLimit: 12, pointRadius: 3 };
-  return { maxTicksLimit: count, pointRadius: 4 };
-}
-
-/* ======================================================
-   KPI RESOLVER (CLAVE DE TODO)
-====================================================== */
-
-function resolveKpi(p, cfg, payload) {
-  const kpi =
-    cfg?.kpi ??
-    payload?.kpi ??
-    'importe';
-
-  return Number(
-    p?.kpis?.[kpi] ??
-    p?.kpis?.importe ??
-    0
-  );
-}
+import { destroyIfExists } from './helpers/destroy.js';
+import { adaptDensity } from './helpers/density.js';
+import { resolveKpi } from './helpers/kpi.js';
 
 /* ======================================================
    DATASET BUILDER (RETROCOMPATIBLE)
