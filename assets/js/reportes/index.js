@@ -29,7 +29,7 @@ import './zonas.js';
 import './detalle.js';
 
 // Personas (arquitectura nueva)
-import { cargarResultadoPersonas } from './personas/index.js';
+import { cargarResultadoPersonas } from './personas/indexPersonas.js';
 
 // ─────────────────────────────
 // INFRAESTRUCTURA

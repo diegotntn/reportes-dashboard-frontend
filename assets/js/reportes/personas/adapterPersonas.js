@@ -1,4 +1,4 @@
-import { resetPersonas, setPersonasData } from './statePersona.js';
+import { resetPersonas, setPersonasData } from './statePersonas.js';
 
 /* ======================================================
    Helpers

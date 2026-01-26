@@ -1,3 +1,11 @@
+/**
+ * Personas Controls
+ * =================
+ * - Renderiza controles de interacción (Modo / Persona / KPI)
+ * - NO contiene lógica de render de gráficas
+ * - Actualiza state y solicita re-render al controller
+ */
+
 import {
   MODOS,
   getModoActual,
@@ -8,12 +16,12 @@ import {
   getKpiActual,
   setKpiActual,
   getDataPorPersona
-} from './statePersona.js';
+} from '../statePersonas.js';
 
-import { intentarRender } from './index.js';
+import { intentarRender } from '../indexPersonas.js';
 
 /* ─────────────────────────────
-   Render de controles (Modo / Persona / KPI)
+   Render de controles
 ───────────────────────────── */
 export function renderizarControles(container) {
   if (!container) return;
@@ -27,7 +35,7 @@ export function renderizarControles(container) {
     margin-bottom: 16px;
   `;
 
-  // ───── MODO ─────
+  // ───── Selector: MODO ─────
   container.appendChild(
     crearSelectorSimple(
       'Modo',
@@ -40,7 +48,7 @@ export function renderizarControles(container) {
     )
   );
 
-  // ───── PERSONA (ID → nombre visible) ─────
+  // ───── Selector: PERSONA ─────
   const personas = getPersonasDisponibles();
   const data = getDataPorPersona();
 
@@ -61,7 +69,7 @@ export function renderizarControles(container) {
     )
   );
 
-  // ───── KPI ─────
+  // ───── Selector: KPI ─────
   container.appendChild(
     crearSelectorSimple(
       'KPI',
@@ -80,7 +88,7 @@ export function renderizarControles(container) {
 }
 
 /* ─────────────────────────────
-   Helper: selector reutilizable (value / label)
+   Helper: selector reutilizable
 ───────────────────────────── */
 function crearSelectorSimple(labelText, opciones, valorActual, onChange) {
   const wrapper = document.createElement('div');
@@ -111,11 +119,11 @@ function crearSelectorSimple(labelText, opciones, valorActual, onChange) {
   `;
 
   opciones.forEach(({ value, label }) => {
-    const opt = document.createElement('option');
-    opt.value = value;
-    opt.textContent = label;
-    opt.selected = value === valorActual;
-    select.appendChild(opt);
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = label;
+    option.selected = value === valorActual;
+    select.appendChild(option);
   });
 
   select.addEventListener('change', e => {

@@ -6,11 +6,11 @@
  * - El render es puro (no reinicia estado válido)
  */
 
-import { registrarEventosPersonas } from './events.js';
-import { adaptarDatosPersonas } from './adapter.js';
-import { renderizarSegunModo } from './render/index.js';
-import { renderizarControles } from './controls.js';
-import { estadoVacio } from './empty.js';
+import { registrarEventosPersonas } from './eventsPersonas.js';
+import { adaptarDatosPersonas } from './adapterPersonas.js';
+import { renderizarSegunModo } from './render/PersonasRenderer.js';
+import { renderizarControles } from './ui/controlsPersonas.js';
+import { estadoVacio } from './emptyPersonas.js';
 
 import {
   getModoActual,
@@ -20,7 +20,7 @@ import {
   getPersonaActual,
   setPersonaActual,
   setKpiActual
-} from './statePersona.js';
+} from './statePersonas.js';
 
 /* ─────────────────────────────
    Render seguro (ENTRY POINT)

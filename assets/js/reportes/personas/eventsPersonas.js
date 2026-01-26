@@ -2,9 +2,9 @@ import {
   setUltimoResultado,
   getUltimoResultado,
   setPeriodoActual
-} from './statePersona.js';
+} from './statePersonas.js';
 
-import { intentarRender } from './index.js';
+import { intentarRender } from './indexPersonas.js';
 
 /* ======================================================
    Registro de eventos para Personas
