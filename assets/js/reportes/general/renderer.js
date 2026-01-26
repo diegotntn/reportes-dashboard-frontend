@@ -10,6 +10,7 @@
 
 import { renderLineChart } from '../../charts/engine.js';
 import { viewState } from './viewState.js';
+import {metricLabel, convertirKeyAFecha} from './utils.js';
 
 // ─────────────────────────────
 // Render principal
@@ -122,42 +123,4 @@ function mostrarEstadoVacio() {
       </p>
     </section>
   `;
-}
-
-// ─────────────────────────────
-// Utilidades visuales
-// ─────────────────────────────
-function metricLabel(m) {
-  if (m === 'importe') return 'Importe';
-  if (m === 'devoluciones') return 'Devoluciones';
-  if (m === 'piezas') return 'Piezas';
-  return m;
-}
-
-function convertirKeyAFecha(key, periodo) {
-  if (!key) return null;
-
-  if (periodo === 'dia' || periodo === 'semana') {
-    const [y, m, d] = key.split('-').map(Number);
-    return new Date(y, m - 1, d);
-  }
-
-  if (periodo === 'mes') {
-    const [y, m] = key.split('-').map(Number);
-    return new Date(y, m - 1, 1);
-  }
-
-  if (periodo === 'anio') {
-    return new Date(Number(key), 0, 1);
-  }
-
-  return null;
-}
-
-// helper ISO (se conserva intacto)
-function isoWeekToDate(y, w) {
-  const s = new Date(Date.UTC(y, 0, 1 + (w - 1) * 7));
-  const d = s.getUTCDay();
-  s.setUTCDate(s.getUTCDate() - (d <= 4 ? d - 1 : d - 8));
-  return new Date(s);
 }
