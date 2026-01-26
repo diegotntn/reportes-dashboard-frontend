@@ -9,31 +9,7 @@ import { BASE_SCALES } from './config/scales.js';
 import { BASE_TOOLTIP } from './plugins/tooltip.js';
 import { destroyIfExists } from './helpers/destroy.js';
 import { adaptDensity } from './helpers/density.js';
-import { resolveKpi } from './helpers/kpi.js';
-
-/* ======================================================
-   DATASET BUILDER (RETROCOMPATIBLE)
-====================================================== */
-
-function buildDataset(serie, cfg, density, payload) {
-  return {
-    label: cfg.label,
-    borderColor: cfg.color,
-    backgroundColor: cfg.bg,
-    tension: 0.3,
-    fill: cfg.fill ?? true,
-    spanGaps: true,
-    pointRadius: density.pointRadius,
-    pointHoverRadius: density.pointRadius + 2,
-    kpi: cfg.kpi ?? payload.kpi,
-
-    data: serie.map(p => ({
-      x: p.fecha,
-      y: resolveKpi(p, cfg, payload),
-      ...p
-    }))
-  };
-}
+import { buildDataset } from './builders/dataset.js';
 
 /* ======================================================
    LINE CHART — UNA O VARIAS SERIES
